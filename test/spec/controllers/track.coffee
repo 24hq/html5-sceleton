@@ -1,6 +1,6 @@
 'use strict'
 
-describe 'Controller: MainCtrl', ->
+describe 'Controller: TrackCtrl', ->
 
   # load the controller's module
   beforeEach module 'html5SceletonApp'
@@ -11,7 +11,7 @@ describe 'Controller: MainCtrl', ->
   # Initialize the controller and a mock scope
   beforeEach inject ($controller, $rootScope) ->
     scope = $rootScope.$new()
-    MainCtrl = $controller 'MainCtrl', {
+    MainCtrl = $controller 'TrackCtrl', {
       $scope: scope
     }
 
