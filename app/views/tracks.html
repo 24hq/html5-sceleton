@@ -1,18 +1,15 @@
 <div ng-controller="TracksController as tracksController">
-	<h3>Choose your destiny:</h3>
+	<h3 ng-show="tracks">Choose your destiny:</h3>
 
-	<div class="btn-group-vertical">
-		<ul ng-repeat="track in tracks">
+	<div class="btn-group-vertical" ng-show="tracks">
+	<ul ng-repeat="track in tracks">
 			<li>
 				<button type="button" class="btn btn-default" ng-click="tracksController.startNewChallenge(track.code)">{{track.title}}</button>
 			</li>
 		</ul>
 	</div>
-
-	<!--<ul ng-repeat="track in tracks">-->
-	<!--<li data-toggle="tooltip" data-placement="right" title="{{track.description}}" ng-click="startNewChallenge(track.code)">-->
-	<!--{{track.title}}-->
-	<!--</li>-->
-	<!--</ul>-->
+	<div ng-hide="tracks">
+		There are no challenges to complete :( (probably app is not reachable, check the console)
+	</div>
 </div>
 

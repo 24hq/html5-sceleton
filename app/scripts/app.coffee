@@ -1,9 +1,15 @@
 'use strict'
 
+#connectionRefusedInterceptor: (rejection) ->
+#  if(rejection.status == 0)
+#    window.location = "noresponse.html"
+#  else
+#    $q.reject(rejection);
+
+
 angular
 .module('learnerd', [
     'ngRoute',
-    'ngResource',
     'ui.bootstrap'
   ])
 .config ($routeProvider) ->
@@ -16,9 +22,6 @@ angular
     controller: 'TrackController'
   .otherwise
       redirectTo: '/'
+
 .factory 'AppLocationService', ->
   'http://localhost:8080/'
-
-
-#.run ($rootScope) ->
-#  $rootScope.appUrl = 'http://localhost:8080/'

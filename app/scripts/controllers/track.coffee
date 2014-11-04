@@ -2,13 +2,12 @@
 
 angular.module('learnerd')
 .controller 'TrackController', ($scope, $routeParams, $http, AppLocationService) ->
-  $http.post(AppLocationService + '/challenges/' + $routeParams.code).success (challenge) ->
-    $scope.challenge = challenge
-
-
   $scope.progress = 0
   $scope.deckSize = 6
   $scope.percentage = 0
+
+  $http.post(AppLocationService + '/challenges/' + $routeParams.code).success (challenge) ->
+    $scope.challenge = challenge
 
   submitAnswer: () ->
     $scope.progress++
