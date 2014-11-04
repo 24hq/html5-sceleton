@@ -4,12 +4,20 @@ angular.module('learnerd')
 .controller 'TrackController', ($scope, $routeParams, $http, AppLocationService) ->
   $http.post(AppLocationService + '/challenges/' + $routeParams.code).success (challenge) ->
     $scope.challenge = challenge
-  #    $scope.question = challenge.question.title
-  #    $scope.answerOptions = challenge.question.answerOptions
+
+
+  $scope.progress = 0
+  $scope.deckSize = 6
+  $scope.percentage = 0
 
   submitAnswer: () ->
+    $scope.progress++
+    $scope.percentage = ((($scope.progress) / $scope.deckSize) * 100).toFixed(2)
+
     $http.post($scope.answerLink).success (response) ->
+      $scope.answerLink = null
       if(response['track.done'])
         $scope.challenge = null
       else
         $scope.challenge = response
+
