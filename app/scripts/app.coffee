@@ -8,14 +8,14 @@ angular
   ])
 .config ($routeProvider) ->
   $routeProvider
-  .when '/tracks',
+  .when '/',
     templateUrl: 'views/tracks.html'
     controller: 'TracksController'
   .when '/tracks/:code',
     templateUrl: 'views/track.html'
     controller: 'TrackController'
   .otherwise
-      redirectTo: '/tracks'
+      redirectTo: '/'
 .factory 'AppLocationService', ->
   'http://localhost:8080/'
 

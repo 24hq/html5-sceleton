@@ -9,14 +9,16 @@
 		</div>
 	</div>
 
-	<form name="trackForm" class="container" ng-submit="trackForm.$valid && trackController.submitAnswer(product)" novalidate>
-		{{challenge}}
+	<form name="trackForm" class="container" ng-submit="trackController.submitAnswer()" novalidate>
+		<div ng-show="challenge">{{challenge['question.title']}}</div>
 
-		<!--<ul ng-repeat="awesome in awesomeThings">-->
-		<!--<li>-->
-		<!--{{awesome}}-->
-		<!--</li>-->
-		<!--</ul>-->
-		<input type="submit" value="Next" class="btn btn-success pull-right"/>
+		<div ng-show="challenge" class="radio" ng-repeat="answer in challenge['question.answerOptions']">
+			<label>
+				<input type="radio" ng-model="$parent.answerLink" name="answerOption" value="{{challenge.links[$index].href}}">
+				{{answer.text}}
+			</label>
+		</div>
+		<input ng-show="challenge" type="submit" value="Next" class="btn btn-success" ng-disabled="!answerLink"/>
 	</form>
+	<div ng-show="!challenge">Completed successfully!!!</div>
 </div>

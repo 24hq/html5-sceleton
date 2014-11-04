@@ -1,6 +1,12 @@
 <div ng-controller="TracksController as tracksController">
-	<div class="btn-group-vertical" ng-repeat="track in tracks">
-		<button type="button" class="btn btn-default" ng-click="tracksController.startNewChallenge(track.code)">{{track.title}}</button>
+	<h3>Choose your destiny:</h3>
+
+	<div class="btn-group-vertical">
+		<ul ng-repeat="track in tracks">
+			<li>
+				<button type="button" class="btn btn-default" ng-click="tracksController.startNewChallenge(track.code)">{{track.title}}</button>
+			</li>
+		</ul>
 	</div>
 
 	<!--<ul ng-repeat="track in tracks">-->
