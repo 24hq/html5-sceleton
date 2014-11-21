@@ -1,12 +1,12 @@
 'use strict'
 
 angular.module('learnerd')
-.controller 'TrackController', ($scope, $routeParams, $http, AppLocationService) ->
+.controller 'TrackController', ($scope, $http, TrackService) ->
   $scope.progress = 0
   $scope.deckSize = 6
   $scope.percentage = 0
 
-  $http.post(AppLocationService + '/challenges/' + $routeParams.code).success (challenge) ->
+  $http.post(TrackService.getTrackLink()).success (challenge) ->
     $scope.challenge = challenge
 
   submitAnswer: () ->

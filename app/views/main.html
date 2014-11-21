@@ -1,10 +1,10 @@
-<div ng-controller="TracksController as tracksController">
+<div ng-controller="MainController as mainController">
 	<h3 ng-show="tracks">Choose your destiny:</h3>
 
 	<div class="btn-group-vertical" ng-show="tracks">
 	<ul ng-repeat="track in tracks">
 			<li>
-				<button type="button" class="btn btn-default" ng-click="tracksController.startNewChallenge(track.code)">{{track.title}}</button>
+				<button type="button" class="btn btn-default" ng-click="mainController.startNewChallenge(track.code)">{{track.title}}</button>
 			</li>
 		</ul>
 	</div>
