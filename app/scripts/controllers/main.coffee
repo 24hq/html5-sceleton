@@ -1,16 +1,17 @@
 'use strict'
 
 angular.module('learnerd')
-.controller 'MainController', ($scope, TracksService, TrackService) ->
-  ##init
+.controller 'MainController', ($scope, $http, ServerLocation, $location) ->
   page = 1
   size = 1
-  $scope.tracks = TracksService.loadTracks(page, size)
+  $http.get(ServerLocation + 'tracks?page=' + page + '&size=' + size)
   .success (tracks) ->
+    $scope.tracks = tracks
     $scope.links = tracks.pop().links
     $scope.tracks = tracks
 
+
   startNewChallenge: (code) ->
-    link = (trackLink for trackLink in $scope.links when trackLink.href.indexOf(code) != -1)[0].href
-    TrackService.loadTrack(link, code)
+    $location.path('/tracks/' + code + '/' + 0)
+    
     

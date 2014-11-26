@@ -6,7 +6,7 @@ class RoutesConfiguration
     .when '/',
       templateUrl: 'views/main.html'
       controller: 'MainController'
-    .when '/tracks/:code',
+    .when '/tracks/:code/:deck',
       templateUrl: 'views/track.html'
       controller: 'TrackController'
     .otherwise

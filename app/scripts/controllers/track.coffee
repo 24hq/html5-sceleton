@@ -1,22 +1,30 @@
 'use strict'
 
 angular.module('learnerd')
-.controller 'TrackController', ($scope, $http, TrackService) ->
-  $scope.progress = 0
-  $scope.deckSize = 6
-  $scope.percentage = 0
+.controller 'TrackController', ($scope, $http, $routeParams, ServerLocation) ->
+  $http.post(ServerLocation + 'challenges/' + $routeParams.code + '/' + $routeParams.deck)
+  .success (track) ->
+    $scope.track = track
+    $scope.deckSize = track['deck.size']
+    $scope.question = track['question']
+    $scope.deckNumber = track['deck']
+    $scope.deckUntilNextLevel = track['track.decksUntilNextLevel']
+    $scope.percentage = 0
 
-  $http.post(TrackService.getTrackLink()).success (challenge) ->
-    $scope.challenge = challenge
 
   submitAnswer: () ->
-    $scope.progress++
-    $scope.percentage = ((($scope.progress) / $scope.deckSize) * 100).toFixed(2)
-
-    $http.post($scope.answerLink).success (response) ->
+    $scope.percentage = ((($scope.question + 1) / $scope.deckSize) * 100).toFixed(2)
+    $http.post($scope.answerLink).success (track) ->
       $scope.answerLink = null
-      if(response['track.done'])
-        $scope.challenge = null
+      if(track['track.done'])
+        $scope.track = null
+        $scope.successRate = track['deck.successRate']
+        $scope.accomplishmentMessage = track['deck.accomplishmentMessage']
+        $scope.passRate = track['deck.passRate']
       else
-        $scope.challenge = response
+        $scope.track = track
+        $scope.deckSize = track['deck.size']
+        $scope.question = track['question']
+        $scope.deckNumber = track['deck']
+        $scope.deckUntilNextLevel = track['track.decksUntilNextLevel']
 

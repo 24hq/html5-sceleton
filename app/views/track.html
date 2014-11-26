@@ -1,24 +1,30 @@
 <div ng-controller="TrackController as trackController">
 	<div class="page-header">
+		<div class="pull-right">
+			Current: {{deckNumber+1}} Until next level: {{deckUntilNextLevel}}
+		</div>
 		<h4>Clean coder</h4>
 		<div style="display: inline-block">Mastery: Novice</div>
 		<div class="progress pull-right" style="width: 20%">
-			<div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="{{deckSize}}" ng-style="{width : (percentage + '%' ) }">
-				{{progress}}/{{deckSize}}
-			</div>
+			<div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="{{question}}" aria-valuemin="1" aria-valuemax="{{deckSize}}" ng-style="{width : (percentage + '%' ) }"></div>
 		</div>
 	</div>
 
 	<form name="trackForm" class="container" ng-submit="trackController.submitAnswer()" novalidate>
-		<div ng-show="challenge">{{challenge['question.title']}}</div>
+		<div ng-show="track">{{track['question.title']}}</div>
 
-		<div ng-show="challenge" class="radio" ng-repeat="answer in challenge['question.answerOptions']">
+		<div ng-show="track" class="radio" ng-repeat="answer in track['question.answerOptions']">
 			<label>
-				<input type="radio" ng-model="$parent.answerLink" name="answerOption" value="{{challenge.links[$index].href}}">
+				<input type="radio" ng-model="$parent.answerLink" name="answerOption" value="{{track.links[$index].href}}">
 				{{answer.text}}
 			</label>
 		</div>
-		<input ng-show="challenge" type="submit" value="Next" class="btn btn-success" ng-disabled="!answerLink"/>
+		<input ng-show="track" type="submit" value="Next" class="btn btn-success" ng-disabled="!answerLink"/>
 	</form>
-	<div ng-show="!challenge">Completed successfully!!!</div>
+	<div ng-show="!track">
+		Your rate: {{successRate}}% <br>
+		Pass rate: {{passRate}}%<br>
+		Message for you: {{accomplishmentMessage}}
+
+	</div>
 </div>
