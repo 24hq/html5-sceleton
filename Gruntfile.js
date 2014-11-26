@@ -21,12 +21,74 @@ module.exports = function (grunt) {
 		dist: 'dist'
 	};
 
+	grunt.loadNpmTasks('grunt-js2coffee');
+	grunt.loadNpmTasks('grunt-ng-constant');
+
 	// Define the configuration for all the tasks
 	grunt.initConfig({
 
 		// Project settings
 		yeoman: appConfig,
 
+		// Environment configurations
+		ngconstant: {
+			// Options for all targets
+			options: {
+				space: '  ',
+				wrap: '"use strict";\n\n {%= __ngModule %}',
+				name: 'config'
+			},
+			// Environment targets
+			development: {
+				options: {
+					dest: '<%= yeoman.app %>/scripts/config.js'
+				},
+				constants: {
+					ENV: {
+						name: 'dev',
+						apiEndpoint: 'http://localhost:8080/api/'
+					}
+				}
+			},
+			production: {
+				options: {
+					dest: '<%= yeoman.dist %>/scripts/config.js'
+				},
+				constants: {
+					ENV: {
+						name: 'prod',
+						apiEndpoint: 'http://localhost:8080/api2/'
+					}
+				}
+			}
+		},
+
+		js2coffee: {
+			options: {
+				// Task-level options go here
+			},
+			// Example: this target compiles a single file from JavaScript to CofeeScript
+			single: {
+				src: '<%= yeoman.app %>/scripts/config.js',
+				dest: '<%= yeoman.app %>/scripts/config.coffee'
+			},
+			// Example: this target compiles a directory of JavaScript files to
+			// individual CofeeScript files, retaining the same directory structure
+			// in the destination folder
+			each: {
+				options: {},
+				files: [
+					{
+						expand: true,
+						cwd: 'tmp/mout/src',
+						src: ['**/*.js'],
+						dest: 'tmp/coffee/',
+						ext: '.coffee'
+					}
+				]
+			}
+		},
+		
 		// Watches files for changes and runs tasks based on the changed files
 		watch: {
 			bower: {
@@ -405,6 +467,8 @@ module.exports = function (grunt) {
 
 		grunt.task.run([
 			'clean:server',
+			'ngconstant:development',
+			'js2coffee',
 			'wiredep',
 			'concurrent:server',
 			'autoprefixer',
@@ -428,6 +492,8 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('build', [
 		'clean:dist',
+		'ngconstant:development',
+		'js2coffee',
 		'wiredep',
 		'useminPrepare',
 		'concurrent:dist',

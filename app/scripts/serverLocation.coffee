@@ -1,5 +1,5 @@
 'use strict'
 
 angular.module('learnerd')
-.factory 'ServerLocation', ->
-  'http://localhost:8080/'
+.factory 'ServerLocation', (ENV) ->
+  ENV.apiEndpoint

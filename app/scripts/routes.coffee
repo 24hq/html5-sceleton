@@ -12,4 +12,4 @@ class RoutesConfiguration
     .otherwise
         redirectTo: '/'
 
-angular.module('learnerd', ['ngRoute']).config ['$routeProvider', RoutesConfiguration] 
+angular.module('learnerd', ['ngRoute', 'config']).config ['$routeProvider', RoutesConfiguration] 
